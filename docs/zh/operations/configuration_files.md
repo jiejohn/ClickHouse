@@ -42,8 +42,10 @@ $ cat /etc/clickhouse-server/users.d/alice.xml
 </yandex>
 ```
 
+对于每个配置文件，服务器在启动时也会生成file-preprocessed.xml文件。 这些文件包含所有已完成的替换和覆盖，它们仅供参考。 如果在配置文件中使用ZooKeeper替换但在服务器启动时ZooKeeper不可用，则服务器从预处理文件加载配置。
 For each config file, the server also generates `file-preprocessed.xml` files when starting. These files contain all the completed substitutions and overrides, and they are intended for informational use. If ZooKeeper substitutions were used in the config files but ZooKeeper is not available on the server start, the server loads the configuration from the preprocessed file.
 
+服务器跟踪配置文件中的更改，以及执行替换和覆盖时使用的文件和ZooKeeper节点，并动态重新加载用户和群集的设置。 这意味着您可以在不重新启动服务器的情况下修改群集，用户及其设置。
 The server tracks changes in config files, as well as files and ZooKeeper nodes that were used when performing substitutions and overrides, and reloads the settings for users and clusters on the fly. This means that you can modify the cluster, users, and their settings without restarting the server.
 
 [Original article](https://clickhouse.yandex/docs/en/operations/configuration_files/) <!--hide-->
